@@ -8,7 +8,7 @@ push 'B'
 push 'C'
 
 ; to show how the stack grows downwards
-mov al, [0x7ffe] ; 0x800 - 2
+mov al, [0x7ffe] ; 0x8000 - 2
 int 0x10
 
 ; access [0x8000] doesn't work
