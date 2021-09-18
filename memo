@@ -153,7 +153,7 @@ math operations list
 operation name	 Description
 add a, b			a = a + b
 sub a, b			a = a - b
-mul reg				rax = rax - reg
+mul reg				rax = rax - reg <= it is assumed that the first operand will be rax
 div reg				rax = rax / reg
 neg reg				reg = -reg
 inc reg				reg = reg + 1
