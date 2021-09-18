@@ -62,3 +62,12 @@ _start:
 	mov rax, 60
 	mov rdi, 0
 	syscall
+
+Math operations
+math operations are used to mathematically manipulate registers.
+the form of a math operation is typically:
+	operation register, value/register
+the first register is the subject of the operation
+example:
+	add rax, 5 ; value of rax is being incremented
+	sub rbx, rax ; rax value will not change, but value of rax will be decremented by rax
