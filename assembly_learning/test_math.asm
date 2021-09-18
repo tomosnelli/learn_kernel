@@ -6,7 +6,16 @@ section .text
 	global _start
 
 _start:
-	mov rax, 7
+	;mov rax, 7
+	;call _printRAXDigit
+
+	mov rax, 6
+	mov rbx, 2
+	div rbx
+	call _printRAXDigit
+
+	mov rax, 1
+	add rax, 4
 	call _printRAXDigit
 
 	mov rax, 60
