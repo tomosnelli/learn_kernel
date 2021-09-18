@@ -1,0 +1,47 @@
+pointers are registers that hold data
+it keeps an address to memory in it
+
+jumps:
+jumps can be used to jump to different parts of code base on labels.
+They are used to divert program flow.
+
+the general format of the jump is:
+jmp label
+	_start:
+		jmp _start
+this makes and infinite loop
+and this will load the address for _start label in to rip(pointer) register
+it holds the address for the next instruction
+
+comparisons
+use cmp for comparisons...
+syntax should be comp register(name), register(name)/value
+	cmp rax, 23
+	cmp rax, rbx
+After the comparison is done, certain flags will get set
+example:
+	a == b		ZF = 1  flag(type of register) will be set to 1
+	a != b		ZF = 0  flag(type of register) will be set to 0
+and.. after a comparison is made, a conditional jump can be made.
+conditional jumps are based on the status of the flags
+conditional jumps in code are written just like unconditional jumps, however
+"jmp" is replaced by the symbol for the conditional jump.
+
+conditional jump Examples
+	cmp rax, 23
+	je _doThis
+je => jump equals. So if the values are equal a jump will happen
+
+or
+	cmp rax, rbx
+	jg _doThis
+jg => jump greater? so if the value of the value in the rax register is greater than the value in the rbx register.
+
+Registers as Pointers
+the default registers can be treated as pointers.
+to treat a register as a pointer, surround the register name with square brackets => rax ===> [rax]
+
+example
+mov rax, rbx ; this will load the value in the rbx register into the rax register
+
+mov rax, [rbx] ; this will load the value the rbx register is pointing to the rax register
