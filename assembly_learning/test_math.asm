@@ -8,6 +8,7 @@ section .text
 _start:
 	;mov rax, 7
 	;call _printRAXDigit
+	; the above code causes a coredump for some reason. I need to learn more
 
 	mov rax, 6
 	mov rbx, 2
