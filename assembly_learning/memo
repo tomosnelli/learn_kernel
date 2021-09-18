@@ -70,12 +70,15 @@ Flags, like registers, hold data.
 Flags only hold 1 bit each. They are either ture or false
 Individual flags are part of a larger register.
 
+
 Pointers:
 pointers are registers that hold data
 it keeps an address to memory in it
 
+
 rip register:
 it hold the address for code that should be executed next in the control flow
+
 
 jumps:
 jumps can be used to jump to different parts of code base on labels.
@@ -89,7 +92,8 @@ this makes and infinite loop
 and this will load the address for _start label in to rip(pointer) register
 it holds the address for the next instruction
 
-comparisons
+
+comparisons:
 use cmp for comparisons...
 syntax should be comp register(name), register(name)/value
 	cmp rax, 23
@@ -122,7 +126,8 @@ mov rax, rbx ; this will load the value in the rbx register into the rax registe
 
 mov rax, [rbx] ; this will load the value the rbx register is pointing to the rax register
 
-Calls and jumps
+
+Calls and jumps:
 calls and jumps are essentially the same.
 However, when "call" is used, the original position the call was made can be returned to using "ret".
 
@@ -160,3 +165,28 @@ inc reg				reg = reg + 1
 dec reg				reg = reg - 1
 adc a, b			a = a + b + CF(CF is a flag if I remember correctly
 sbb a, b			a = a - b - CF
+
+
+The Stack:
+The stack, like registers, it another way to temporarily store data.
+It is called the "stack" because you stack data onto it.
+imagine a stack of papers, As you stack one paper on top of another, you can only at a given time see the contents of the paper at the top of the stack.
+A page within the midddle of the stack cannot be removed without removing all the pages on top of it first, as the pages on top of it hold it in place.
+
+stack terminology => when you add data onto the top of the stack, you PUSH data onto the stack.
+when you remove data from the top of the stack, you POP data from the stack.
+if you look at the top of the stack without removing or adding anything to it, this is called peeking.
+
+
+Stack Operations:
+
+Operation			 Effect
+push reg/value		Pushes a vlue onto the stack
+pop reg				Pops a value off of the stack and stores it in reg
+mov reg, [rsp]		Stores the peek value in reg. rsp is a stack pointer that points to the top of the stack
+
+NOTE: usually in places where you can use registers, you can also use pointers.
+	  Such as, instead of "pop reg", you can use "pop [label]" to pop a value off the stack directly into a position in
+	  memory.
+
+NOTE: when you do "pop rax" this will pop the value off the stack, then save it to rax register
