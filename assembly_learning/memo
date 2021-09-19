@@ -190,3 +190,52 @@ NOTE: usually in places where you can use registers, you can also use pointers.
 	  memory.
 
 NOTE: when you do "pop rax" this will pop the value off the stack, then save it to rax register
+
+==========================================================================
+
+Macro:
+A macro is a single instruction that expands into a predefined set of instructions to perform a particular task.
+
+example:
+	exit => mov rax, 60
+		 => mov rdi, 0
+		 => syscall
+exit, the single instruction will do this
+
+Defining Macros:
+	syntax:
+	%macro <name> <argc>
+		...
+		<macro body>
+		...
+	%endmacro
+
+argc: the number of arguments that the macro will take
+to access the macro arguments you use "%1" for the first inpu, "%2"
+for the second input and so on inside the macro body
+
+actual example
+
+%macro exit 0      ; 0 is argc, meaning it will not take arguments
+	mov rax, 60
+	mov rdi, 0
+	syscall
+%endmacro
+
+more examples:
+%macro exit 0
+	mov rax, 60
+	mov rdi, 0
+	syscall
+%endmacro
+
+%macro printDigit 1
+	mov rax, %1
+	call _printRAXDigit
+%endmacro
+
+_start:
+	printDigit 3
+	printDigit 4
+	exit
+
