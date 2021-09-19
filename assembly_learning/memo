@@ -366,3 +366,22 @@ _start:
 read more about "linux64.inc"
 in => http://pastebin.com/N1ZdmhLw
 
+NOTE: about div operation
+
+===================================
+
+mov rax, 24
+mov rbx, 2
+div rbx
+
+===================================
+
+this will set rax to 12. however rdx will have an effect to this operation.
+if the rdx register is not 0, then the rdx will be concatinated to rax.
+this means that rax will be treated as a 128 bit register, and on this the operation will take place. to avoid this... before you use div set rdx to 0.
+
+ALSO, after the div is done, rdx will hold the remainder of the division..
+
+
+
+
