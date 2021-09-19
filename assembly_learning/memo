@@ -239,3 +239,130 @@ _start:
 	printDigit 4
 	exit
 
+==End of example================================
+
+Arguments for macros
+if a macro is set to take more than 1 argument, use a comma between argumentso
+
+example:
+%macro printDigitSum 2
+	mov rax, %1
+	add rax, %2
+	call _printRAXDigit
+%endmacro
+
+_start:
+	printDigitSum 3, 2
+	exit
+
+notes for using macros two times
+you can get a redefine error
+
+example:
+
+%macro freeze 0
+_loop:
+	jmp _loop
+
+_start:
+	freeze
+	freeze
+	exit
+
+=== this will be expanded as this below =======
+
+%macro freeze 0
+_loop:
+	jmp _loop
+%endmacro
+
+_start:
+_loop:
+	jmp _loop
+_loop:
+	jmp _loop
+	exit
+
+================================================
+
+and you will get a redefine error
+because you are execute/defining the labels with the exact same name.
+making it point to the same place
+
+to avoid this, you can use "%%" before a label name within a macro.
+This will make it so that the label is unique every time it is expanded.
+
+example:
+=======================================================
+
+(original)
+%macro freeze 0
+_loop:
+	jmp _loop
+%endmacro
+
+(with %%)
+%macro freeze 0
+%%loop:
+	jmp %%loop
+%endmacro
+
+========================================================
+
+Defining Values with EQU
+
+so just like C constances
+
+example:
+========================================================
+
+STDIN equ 0
+STDOUT equ 1
+STDERR equ 2
+
+SYS_READ equ 0
+SYS_WRITE equ 1
+SYS_EXIT equ 60
+
+section .data
+	text db "Hello, World!",10
+
+section .text
+	global _start
+
+_start:
+	mov rax, SYS_WRITE
+	mov rdi, STDOUT
+	mov rsi, text
+	mov rdx, 14
+	syscall
+
+	mov rax, SYS_EXIT
+	mov rdi, 0
+	syscall
+
+===================================================
+
+Including External Files:
+the code below will work because the "print" and "exit" macro
+are pre-defined in the "linux64.inc" file.
+
+example:
+======================================================
+
+%include "linux64.inc"
+
+section .data
+	text db "Hello, World!",10,0
+section .text
+	global _start
+
+_start:
+	print text
+	exit
+
+=======================================================
+
+read more about "linux64.inc"
+in => http://pastebin.com/N1ZdmhLw
+
