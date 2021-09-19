@@ -382,6 +382,54 @@ this means that rax will be treated as a 128 bit register, and on this the opera
 
 ALSO, after the div is done, rdx will hold the remainder of the division..
 
+====================================================================================
 
+Command Line Arguemnts:
 
+example:
 
+===============================
+$ ./argtest arg1 arg2 arg3
+===============================
+
+all command line arguments are strings
+
+Arguments on the stack:
+when the program is executed, the arguments are automatically loaded onto to stack.
+The top item is the number of arguments, This number is always at leat 1, being the ./argetest being it.
+The next items in the stack are pointers to the zero-terminated strings with the path then of each individual argument
+
+example:
+===========================================================
+
+argc		4				top
+*path		./argtest
+*arg[1]		arg1
+*arg[2]		arg2
+*arg[3]		arg3			bottom
+
+============================================================
+
+Display Argument Count:
+example:
+============================================================
+
+%include "linux64.inc"
+
+section .data
+	newline db 10,0
+
+section .text
+	global _start
+
+_start:
+	pop rax		; top of stack is the argument count
+	printVal rax
+	print newline
+	exit
+
+==============================================================
+
+this will show the argument count
+
+another thing you can do is pass files to the command line argument and to some file i/o
